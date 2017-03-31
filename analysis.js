@@ -42,3 +42,43 @@ let checkIfFinish = () => {
 	}
 	return 0;
 };
+
+
+//returns an array of empty cells
+let getAviableCells = () => {
+	let result = [];
+	for (let i = 0; i < board.length; i++){
+		board[i] || result.push(i);
+	}
+	console.log(result);
+	return result;
+};
+
+//chooses random cell
+let getRandomCellIndex = () => {
+	let cells = getAviableCells();
+	console.log(cells[Math.floor(Math.random() * cells.length)]);
+	return cells[Math.floor(Math.random() * cells.length)];
+};
+
+
+let finishGame = () => {
+	board = [0,0,0,0,0,0,0,0,0];
+
+};
+
+//recursive function that triggers automatic moves
+let move = (isFirstMove) => {
+	let isFinish = checkIfFinish();
+	if(isFinish){
+		finishGame();
+		return isFinish;
+	}
+
+	let currentPlayerVal = isFirstMove ? 3 : 5;
+	
+
+	let index = getRandomCellIndex();
+	board[index] = currentPlayerVal;
+	return move(isFirstMove ? false : true);
+};
